@@ -71,6 +71,12 @@ class FullTmHmCompatibility(Toggle):
     default = 0
 
 
+class RandomizeTmMoves(Toggle):
+    """The moves taught by TMs, other than field moves, are random"""
+    display_name = "Randomize TM Moves"
+    default = 0
+
+
 class ReusableTMs(Toggle):
     """TMs can be used an infinite number of times"""
     display_name = "Reusable TMs"
@@ -130,6 +136,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     randomize_trainer_parties: RandomizeTrainerParties
     randomize_learnsets: RandomizeLearnsets
     full_tmhm_compatibility: FullTmHmCompatibility
+    randomize_tm_moves: RandomizeTmMoves
     reusable_tms: ReusableTMs
     guaranteed_catch: GuaranteedCatch
     minimum_catch_rate: MinimumCatchRate

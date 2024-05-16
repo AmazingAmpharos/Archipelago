@@ -147,6 +147,28 @@ def generate_output(world: PokemonCrystalWorld, output_directory: str) -> None:
             write_bytes(patched_rom, pokemon_data, address)
             address += len(pokemon)
 
+    if world.options.randomize_tm_moves:
+        # This method guarantees all non-field TMs are assigned to random acceptable moves.
+        # All 46 selected moves are guaranteed to be unique.
+        randommoves = [move.id for _name, move in data.moves.items() if not move.is_hm and move.id > 0
+                       and move not in ["STRUGGLE", "BEAT_UP", "HEADBUTT", "ROCK_SMASH", "SWEET_SCENT", "DIG"]]
+        tmlist = []
+        for i in range(1, 51):
+            if i == 2:
+                tmlist.append(29) # Headbutt
+            elif i == 8:
+                tmlist.append(249)  # Rock Smash
+            elif i == 12:
+                tmlist.append(230) # Sweet Scent
+            elif i == 28:
+                tmlist.append(91) # Dig
+            else:
+                new_move = random.choice(randommoves)
+                randommoves.remove(new_move)
+                tmlist.append(new_move)
+        address = data.rom_addresses["TM_Move_List"]
+        write_bytes(patched_rom, tmlist, address)
+
     if world.options.blind_trainers:
         address = data.rom_addresses["AP_Setting_Blind_Trainers"]
         write_bytes(patched_rom, [0xC9], address)  # 0xC9 = ret
