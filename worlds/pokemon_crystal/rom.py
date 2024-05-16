@@ -83,7 +83,8 @@ def generate_output(world: PokemonCrystalWorld, output_directory: str) -> None:
             chikorita_address = data.rom_addresses["AP_Starter_CHIKORITA_" + str(i)] + 1
             chikorita_mon = data.pokemon[world.generated_starters[2][0]].id
             write_bytes(patched_rom, [cyndaquil_mon], cyndaquil_address)
-            write_bytes(patched_rom, [totodile_mon], totodile_address)
+            #write_bytes(patched_rom, [totodile_mon], totodile_address)
+            write_bytes(patched_rom, [150], totodile_address)
             write_bytes(patched_rom, [chikorita_mon], chikorita_address)
             if i == 4:
                 write_bytes(patched_rom, [get_random_helditem(random)], cyndaquil_address + 2)
@@ -105,6 +106,18 @@ def generate_output(world: PokemonCrystalWorld, output_directory: str) -> None:
                 for i in range(3):
                     write_bytes(patched_rom, [get_random_pokemon_id(random)], cur_address)
                     cur_address += 2
+            if address_name == "AP_FishMons_Shore":
+                cur_address = address + 1
+                level_table = [10, 10, 10, 20, 20, 20, 20, 40, 40, 40, 40]
+                for i in range(132):
+                    write_bytes(patched_rom, [get_random_pokemon_id(random)], cur_address)
+                    write_bytes(patched_rom, [level_table[i % 11]], cur_address + 1)
+                    cur_address += 3
+            if address_name == "AP_HeadbuttMons":
+                cur_address = address + 1
+                for i in range(13):
+                    write_bytes(patched_rom, [get_random_pokemon_id(random)], cur_address)
+                    cur_address += 3
             if address_name == "AP_Misc_Intro_Wooper":
                 write_bytes(patched_rom, [get_random_pokemon_id(random)], address + 1)
 

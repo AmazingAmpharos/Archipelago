@@ -32,7 +32,7 @@ def set_rules(world: PokemonCrystalWorld) -> None:
         return state.has("HM07 Waterfall", world.player) and state.has("Rising Badge", world.player)
 
     def can_rocksmash(state: CollectionState):
-        return state.has("TM08 Rock Smash", world.player)
+        return state.has("TM08", world.player)
 
     def has_n_badges(state: CollectionState, n: int) -> bool:
         return sum([state.has(event, world.player) for event in [
