@@ -83,8 +83,7 @@ def generate_output(world: PokemonCrystalWorld, output_directory: str) -> None:
             chikorita_address = data.rom_addresses["AP_Starter_CHIKORITA_" + str(i)] + 1
             chikorita_mon = data.pokemon[world.generated_starters[2][0]].id
             write_bytes(patched_rom, [cyndaquil_mon], cyndaquil_address)
-            #write_bytes(patched_rom, [totodile_mon], totodile_address)
-            write_bytes(patched_rom, [150], totodile_address)
+            write_bytes(patched_rom, [totodile_mon], totodile_address)
             write_bytes(patched_rom, [chikorita_mon], chikorita_address)
             if i == 4:
                 write_bytes(patched_rom, [get_random_helditem(random)], cyndaquil_address + 2)
